@@ -84,6 +84,8 @@
 
 // TODO: Task 2 - Get the "schedule" list element from the document
 const list = document.getElementById("schedule");
+const track1Checkbox = document.getElementById("show-track-1");
+const track2Checkbox = document.getElementById("show-track-2");
 
 function createSessionElement(session) {
     // TODO: Task 3 - Create a <li> element for the session.
@@ -107,12 +109,21 @@ function displaySchedule() {
     //       Create session elements
     //       Append the elements to the list   
     for (let i = 0; i < schedule.length; i++) {
-        const li = createSessionElement(schedule[i]);
-        list.appendChild(li);
+        var tracks = schedule[i].tracks;
+        var track1Selected = track1Checkbox.checked && tracks.indexOf(1) >= 0;
+        var track2Selected = track2Checkbox.checked && tracks.indexOf(2) >= 0;
+        if (track1Selected || track2Selected) {
+            const li = createSessionElement(schedule[i]);
+            list.appendChild(li);
+        }
     }
 }
 
 displaySchedule();
+
+track1Checkbox.addEventListener("click", displaySchedule);
+track2Checkbox.addEventListener("click", displaySchedule);
+
 // SIG // Begin signature block
 // SIG // MIIaVgYJKoZIhvcNAQcCoIIaRzCCGkMCAQExCzAJBgUr
 // SIG // DgMCGgUAMGcGCisGAQQBgjcCAQSgWTBXMDIGCisGAQQB
